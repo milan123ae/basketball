@@ -14,12 +14,14 @@ var plasmanGrupe = {"A":[{"Team": "Kanada", Pobede: 0, Porazi: 0, Bodovi: 0, Pos
 {"Team": "Južni Sudan", Pobede: 0, Porazi: 0, Bodovi: 0, PostKosevi: 0, PrimljKos: 0, Razl: 0, Forma:-2, USA:0, SRB:0, PUER:0, USAk:0, SRBk:0, PUERk:0},
 {"Team": "Puerto Riko", Pobede: 0, Porazi: 0, Bodovi: 0, PostKosevi: 0, PrimljKos: 0, Razl: 0, Forma:-2, USA:0, SRB:0, SSUD:0, USAk:0, SRBk:0, SSUDk:0}]};
 
-
+//Ova funkcija ima ulazni argument broj kola, ona izracunava rezultat dve utakmice iz iste grupe i popunjava podatke za statistiku vezano za te dve utakmice
 function IgraA(kolo)
 {
 let x = Math.floor(Math.random() * 50) + 60;
 let y = Math.floor(Math.random() * 50) + 60;
 
+//ukoliko je kolo 1 imam i FIBARanking dodat i plus Formu
+//i,j,k,l sluzi da selektujem kom objektu pristupam, posto za razlicita kola moram razlicite timove da ucitavam u f-ju u zavisnosti od kola
 if(kolo == 1)
     {
         var i=0;
@@ -32,6 +34,7 @@ if(kolo == 1)
         var zemlja4 = (plasmanGrupe.A[l].Forma)*2 + y - data.A[l].FIBARanking;
 
     }
+//Ovde nemam FibaRanking, vec samo Formu
 else if(kolo == 2)
 {
     var i=0;
@@ -58,6 +61,7 @@ else if(kolo == 3)
 }
   if(zemlja1>zemlja2)
     {
+        //Ukoliko je prva zemlja(drzava) pobedila, dodajem sve podatke za statistiku
         plasmanGrupe.A[i].Forma++;
         plasmanGrupe.A[j].Forma--;
         plasmanGrupe.A[j].Bodovi++;
@@ -70,6 +74,7 @@ else if(kolo == 3)
         plasmanGrupe.A[j].PrimljKos += zemlja1;
         if(kolo == 1)
         {
+            //Ovde dodajem koju drzavu je pobedila i sa kojom kos razlikom
             plasmanGrupe.A[0].GRE++;
             plasmanGrupe.A[2].CAN--;
             plasmanGrupe.A[0].GREk = zemlja1 - zemlja2;
@@ -125,6 +130,7 @@ else if(zemlja1<zemlja2)
 
     }
 else{
+    //Ukoliko je nereseno
     Math.random() > 0.5 ? zemlja1 : zemlja2
     if(zemlja1 > zemlja2)
     {
@@ -195,6 +201,7 @@ else{
             }
     }
 }
+//Ovo je drugi par iz iste grupe
  if(zemlja3>zemlja4)
     {
        plasmanGrupe.A[k].Forma++;
@@ -340,7 +347,7 @@ else{
 
 }
 
-
+//Ista kao za A, samo ovde je za B grupu
 function IgraB(kolo)
 {
 let x = Math.floor(Math.random() * 50) + 60;
@@ -659,7 +666,7 @@ console.log(data.B[k].Team + ":" + data.B[l].Team+" "+zemlja3+':'+zemlja4)
 }
 
 
-
+//Ista kao za A i B, samo ovde je za C grupu
 function IgraC(kolo)
 {
 let x = Math.floor(Math.random() * 50) + 60;
@@ -992,20 +999,8 @@ console.log("Grupna faza:\nIII kolo:")
 IgraA(3);
 IgraB(3);
 IgraC(3);
-//console.log(plasmanGrupe)
 
-//plasmanGrupe.A.sort((a, b) => a.Pobede - b.Pobede);
-//console.log(plasmanGrupe)
-/*
-var GrupaA = [{Team: plasmanGrupe.A[0].Team, Bodovi: plasmanGrupe.A[0].Bodovi, Pobede: plasmanGrupe.A[0].Pobede, Porazi: plasmanGrupe.A[0].Porazi, PostKosevi: plasmanGrupe.A[0].PostKosevi, PrimljKos: plasmanGrupe.A[0].PrimljKos, Razl: (plasmanGrupe.A[0].PostKosevi - plasmanGrupe.A[0].PrimljKos), Forma: plasmanGrupe.A[0].Forma, AUS: plasmanGrupe.A[0].AUS, GRE: plasmanGrupe.A[0].GRE, SPA: plasmanGrupe.A[0].SPA, AUSk: plasmanGrupe.A[0].AUSk, GREk: plasmanGrupe.A[0].GREk, SPAk: plasmanGrupe.A[0].SPAk},
-{Team: plasmanGrupe.A[1].Team, Bodovi: plasmanGrupe.A[1].Bodovi, Pobede: plasmanGrupe.A[1].Pobede, Porazi: plasmanGrupe.A[1].Porazi, PostKosevi: plasmanGrupe.A[1].PostKosevi, PrimljKos: plasmanGrupe.A[1].PrimljKos, Razl: (plasmanGrupe.A[0].PostKosevi - plasmanGrupe.A[0].PrimljKos), Forma: plasmanGrupe.A[0].Forma},
- {Team: plasmanGrupe.A[2].Team, Bodovi: plasmanGrupe.A[2].Bodovi}, 
- {Team: plasmanGrupe.A[3].Team, Bodovi: plasmanGrupe.A[3].Bodovi}];
-GrupaA.sort((obj1, obj2) => obj2.Bodovi - obj1.Bodovi);
-*/
-//console.log(GrupaA)
-//var arr = [];
-
+//Sortiranje u grupi A po Bodovima
 for (var i=0; i< 3; i++)
 {
     let minIndex = i;
@@ -1021,6 +1016,7 @@ for (var i=0; i< 3; i++)
     plasmanGrupe.A[i] = temp;
 }
 
+//Ukoliko 3 ekipe imaju isto bodova - sortiranje
 for(let i =3; i<=2; i--)
 {
     if((plasmanGrupe.A[i].Bodovi == plasmanGrupe.A[i-1].Bodovi) && (plasmanGrupe.A[i].Bodovi == plasmanGrupe.A[i-2].Bodovi) && (plasmanGrupe.A[i-1].Bodovi == plasmanGrupe.A[i-2].Bodovi))
@@ -1055,6 +1051,7 @@ for(let i =3; i<=2; i--)
     }
 }
 
+//Ukoliko 2 ekipe imaju isti broj bodova - sortiranje
 for(let i=3; i<=1; i--)
 {
  if(plasmanGrupe.A[i].Bodovi == plasmanGrupe.A[i-1].Bodovi)
@@ -1068,7 +1065,7 @@ for(let i=3; i<=1; i--)
   }
 }
 
-
+//Sortiranje u grupi B po Bodovima
 for (var i=0; i< 3; i++)
     {
         let minIndex = i;
@@ -1083,7 +1080,8 @@ for (var i=0; i< 3; i++)
         plasmanGrupe.B[minIndex] = plasmanGrupe.B[i];
         plasmanGrupe.B[i] = temp;
     }
-    
+
+   //Ukoliko 3 ekipe imaju isto bodova - sortiranje
     for(let i =3; i<=2; i--)
     {
         if((plasmanGrupe.B[i].Bodovi == plasmanGrupe.B[i-1].Bodovi) && (plasmanGrupe.B[i].Bodovi == plasmanGrupe.B[i-2].Bodovi) && (plasmanGrupe.B[i-1].Bodovi == plasmanGrupe.B[i-2].Bodovi))
@@ -1117,7 +1115,7 @@ for (var i=0; i< 3; i++)
             }
         }
     }
-    
+   //Ukoliko 2 ekipe imaju isti broj bodova - sortiranje  
     for(let i=3; i<=1; i--)
     {
      if(plasmanGrupe.B[i].Bodovi == plasmanGrupe.B[i-1].Bodovi)
@@ -1131,7 +1129,7 @@ for (var i=0; i< 3; i++)
       }
     }
 
- 
+ //Sortiranje u grupi C po Bodovima
     for (var i=0; i< 3; i++)
         {
             let minIndex = i;
@@ -1146,7 +1144,8 @@ for (var i=0; i< 3; i++)
             plasmanGrupe.C[minIndex] = plasmanGrupe.C[i];
             plasmanGrupe.C[i] = temp;
         }
-        
+
+//Ukoliko 3 ekipe imaju isto bodova - sortiranje 
         for(let i =3; i<=2; i--)
         {
             if((plasmanGrupe.C[i].Bodovi == plasmanGrupe.C[i-1].Bodovi) && (plasmanGrupe.C[i].Bodovi == plasmanGrupe.C[i-2].Bodovi) && (plasmanGrupe.C[i-1].Bodovi == plasmanGrupe.C[i-2].Bodovi))
@@ -1180,7 +1179,8 @@ for (var i=0; i< 3; i++)
                 }
             }
         }
-        
+
+//Ukoliko 2 ekipe imaju isti broj bodova - sortiranje 
         for(let i=3; i<=1; i--)
         {
          if(plasmanGrupe.C[i].Bodovi == plasmanGrupe.C[i-1].Bodovi)
@@ -1214,55 +1214,16 @@ console.log('2.'+ plasmanGrupe.C[2].Team +'   '+ plasmanGrupe.C[2].Pobede+'/'+pl
 console.log('3.'+ plasmanGrupe.C[1].Team +'   '+ plasmanGrupe.C[1].Pobede+'/'+plasmanGrupe.C[1].Porazi*(-1)+'/'+plasmanGrupe.C[1].Bodovi+'/'+plasmanGrupe.C[1].PostKosevi+'/'+plasmanGrupe.C[1].PrimljKos+'/' + (plasmanGrupe.C[1].PostKosevi - plasmanGrupe.C[1].PrimljKos))
 console.log('4.'+ plasmanGrupe.C[0].Team +'   '+ plasmanGrupe.C[0].Pobede+'/'+plasmanGrupe.C[0].Porazi*(-1)+'/'+plasmanGrupe.C[0].Bodovi+'/'+plasmanGrupe.C[0].PostKosevi+'/'+plasmanGrupe.C[0].PrimljKos+'/' + (plasmanGrupe.C[0].PostKosevi - plasmanGrupe.C[0].PrimljKos))
 
-/*
-if(plasmanGrupe.A[3].Bodovi > plasmanGrupe.B[3].Bodovi)
-{
-   if(plasmanGrupe.A[3].Bodovi > plasmanGrupe.C[3].Bodovi) 
-   {
-    var rang1 = [plasmanGrupe.A[3].Team, plasmanGrupe.A[3].Forma, 'A'];
-    if(plasmanGrupe.B[3].Bodovi > plasmanGrupe.C[3].Bodovi)
-    {
-        var rang2 = [plasmanGrupe.B[3].Team, plasmanGrupe.B[3].Forma, 'B'];
-        var rang3 = [plasmanGrupe.C[3].Team, plasmanGrupe.C[3].Forma, 'C'];
-    }
-    else(plasmanGrupe.B[3].Bodovi < plasmanGrupe.C[3].Bodovi)
-   }
-   else if(plasmanGrupe.A[3].Bodovi < plasmanGrupe.C[3].Bodovi)
-    {
-        var rang1 = [plasmanGrupe.C[3].Team, plasmanGrupe.C[3].Forma, 'C'];
-    }
-    elseif(plasmanGrupe.A[3].Bodovi == plasmanGrupe.C[3].Bodovi)
-    {
-        if((plasmanGrupe.A[3].PostKosevi - plasmanGrupe.A[3].PrimljKos) == (plasmanGrupe.C[3].PostKosevi - plasmanGrupe.C[3].PrimljKos))
-        {
-            if(plasmanGrupe.A[3].PostKosevi > plasmanGrupe.C[3].PostKosevi)
-            {
-                var rang1 = [plasmanGrupe.A[3].Team, plasmanGrupe.A[3].Forma, 'A'];
-            }
-            else
-            {
-                var rang1 = [plasmanGrupe.C[3].Team, plasmanGrupe.C[3].Forma, 'C'];
-            }
-        }
-        else if((plasmanGrupe.A[3].PostKosevi - plasmanGrupe.A[3].PrimljKos) > (plasmanGrupe.C[3].PostKosevi - plasmanGrupe.C[3].PrimljKos))
-        {
-            var rang1 = [plasmanGrupe.A[3].Team, plasmanGrupe.A[3].Forma, 'A'];
-        }
-        else
-        {
-            var rang1 = [plasmanGrupe.C[3].Team, plasmanGrupe.C[3].Forma, 'C'];
-        }
-
-    } 
-}
-elseif()
-*/
+//rangovi sadrzi prva 3 tima iz grupe A,B,C(sluzi mi za formiranje prva tri ranga)
+//takodje i sadrzi ststistiku koja ce mi kasnije koristiti
 var rangovi = [{Team: plasmanGrupe.A[3].Team, Bodovi: plasmanGrupe.A[3].Bodovi , Grupa: 'A', Forma: plasmanGrupe.A[3].Forma, Razl: (plasmanGrupe.A[3].PostKosevi - plasmanGrupe.A[3].PrimljKos), PostKosevi: plasmanGrupe.A[3].PostKosevi, BrojacPobeda: 0},
 {Team: plasmanGrupe.B[3].Team, Bodovi: plasmanGrupe.B[3].Bodovi , Grupa: 'B', Forma: plasmanGrupe.B[3].Forma, Razl: (plasmanGrupe.B[3].PostKosevi - plasmanGrupe.B[3].PrimljKos), PostKosevi: plasmanGrupe.B[3].PostKosevi, BrojacPobeda: 0}, 
 {Team: plasmanGrupe.C[3].Team, Bodovi: plasmanGrupe.C[3].Bodovi , Grupa: 'C', Forma: plasmanGrupe.C[3].Forma, Razl: (plasmanGrupe.C[3].PostKosevi - plasmanGrupe.C[3].PrimljKos), PostKosevi: plasmanGrupe.C[3].PostKosevi, BrojacPobeda: 0}];
-//console.log(rangovi);
+
+//Sortiranje po Bodovima
 rangovi.sort((obj1, obj2) => obj2.Bodovi - obj1.Bodovi);
 
+//Sortiranje ukoliko sva tri imaji isti broj bodova
 if((rangovi[0].Bodovi == rangovi[1].Bodovi) && (rangovi[0].Bodovi == rangovi[2].Bodovi))
 {
     if((rangovi[0].Razl == rangovi[1].Razl) && (rangovi[0].Razl == rangovi[2].Razl))
@@ -1274,6 +1235,7 @@ if((rangovi[0].Bodovi == rangovi[1].Bodovi) && (rangovi[0].Bodovi == rangovi[2].
     }
 }
 
+//Sortiranje ukoliko dva ranga imaju isti broj bodova
 if(rangovi[0].Bodovi == rangovi[1].Bodovi)
     {
         if(rangovi[0].Razl == rangovi[1].Razl)
@@ -1315,12 +1277,16 @@ else if(rangovi[1].Bodovi == rangovi[2].Bodovi)
         }
 }
 
+//rangovi sadrzi druga 3 tima iz grupe A,B,C(sluzi mi za formiranje 4,5,6 ranga)
+//takodje i sadrzi ststistiku koja ce mi kasnije koristiti
 var rangovi1 = [{Team: plasmanGrupe.A[2].Team, Bodovi: plasmanGrupe.A[2].Bodovi , Grupa: 'A', Forma: plasmanGrupe.A[2].Forma, Razl: (plasmanGrupe.A[2].PostKosevi - plasmanGrupe.A[2].PrimljKos), PostKosevi: plasmanGrupe.A[2].PostKosevi, BrojacPobeda: 0},
 {Team: plasmanGrupe.B[2].Team, Bodovi: plasmanGrupe.B[2].Bodovi , Grupa: 'B', Forma: plasmanGrupe.B[2].Forma, Razl: (plasmanGrupe.B[2].PostKosevi - plasmanGrupe.B[2].PrimljKos), PostKosevi: plasmanGrupe.B[2].PostKosevi, BrojacPobeda: 0}, 
 {Team: plasmanGrupe.C[2].Team, Bodovi: plasmanGrupe.C[2].Bodovi , Grupa: 'C', Forma: plasmanGrupe.C[2].Forma, Razl: (plasmanGrupe.C[2].PostKosevi - plasmanGrupe.C[2].PrimljKos), PostKosevi: plasmanGrupe.C[2].PostKosevi, BrojacPobeda: 0}];
 
+//Sortiranje po Bodovima
 rangovi1.sort((obj1, obj2) => obj2.Bodovi - obj1.Bodovi);
 
+//Sortiranje ukoliko sva tri imaji isti broj bodova
 if((rangovi1[0].Bodovi == rangovi1[1].Bodovi) && (rangovi1[0].Bodovi == rangovi1[2].Bodovi))
     {
         if((rangovi1[0].Razl == rangovi1[1].Razl) && (rangovi1[0].Razl == rangovi1[2].Razl))
@@ -1331,7 +1297,8 @@ if((rangovi1[0].Bodovi == rangovi1[1].Bodovi) && (rangovi1[0].Bodovi == rangovi1
             rangovi1.sort((obj1, obj2) => obj2.Razl - obj1.Razl);
         }
     }
-    
+
+ //Sortiranje ukoliko dva ranga imaju isti broj bodova 
     if(rangovi1[0].Bodovi == rangovi1[1].Bodovi)
         {
             if(rangovi1[0].Razl == rangovi1[1].Razl)
@@ -1373,12 +1340,16 @@ if((rangovi1[0].Bodovi == rangovi1[1].Bodovi) && (rangovi1[0].Bodovi == rangovi1
             }
     }
 
+//rangovi sadrzi treca 3 tima iz grupe A,B,C(sluzi mi za formiranje 7,8,9 ranga)
+//takodje i sadrzi ststistiku koja ce mi kasnije koristiti
 var rangovi2 = [{Team: plasmanGrupe.A[1].Team, Bodovi: plasmanGrupe.A[1].Bodovi , Grupa: 'A', Forma: plasmanGrupe.A[1].Forma, Razl: (plasmanGrupe.A[1].PostKosevi - plasmanGrupe.A[1].PrimljKos), PostKosevi: plasmanGrupe.A[1].PostKosevi, BrojacPobeda: 0},
     {Team: plasmanGrupe.B[1].Team, Bodovi: plasmanGrupe.B[1].Bodovi , Grupa: 'B', Forma: plasmanGrupe.B[1].Forma, Razl: (plasmanGrupe.B[1].PostKosevi - plasmanGrupe.B[1].PrimljKos), PostKosevi: plasmanGrupe.B[1].PostKosevi, BrojacPobeda: 0}, 
     {Team: plasmanGrupe.C[1].Team, Bodovi: plasmanGrupe.C[1].Bodovi , Grupa: 'C', Forma: plasmanGrupe.C[1].Forma, Razl: (plasmanGrupe.C[1].PostKosevi - plasmanGrupe.C[1].PrimljKos), PostKosevi: plasmanGrupe.C[1].PostKosevi, BrojacPobeda: 0}];
-    
+
+//Sortiranje po Bodovima
 rangovi2.sort((obj1, obj2) => obj2.Bodovi - obj1.Bodovi);
 
+//Sortiranje ukoliko sva tri imaji isti broj bodova
 if((rangovi2[0].Bodovi == rangovi2[1].Bodovi) && (rangovi2[0].Bodovi == rangovi2[2].Bodovi))
     {
         if((rangovi2[0].Razl == rangovi2[1].Razl) && (rangovi2[0].Razl == rangovi2[2].Razl))
@@ -1389,7 +1360,8 @@ if((rangovi2[0].Bodovi == rangovi2[1].Bodovi) && (rangovi2[0].Bodovi == rangovi2
             rangovi2.sort((obj1, obj2) => obj2.Razl - obj1.Razl);
         }
     }
-    
+
+   //Sortiranje ukoliko dva ranga imaju isti broj bodova  
     if(rangovi2[0].Bodovi == rangovi2[1].Bodovi)
         {
             if(rangovi2[0].Razl == rangovi2[1].Razl)
@@ -1438,6 +1410,7 @@ console.log('Šešir E\n'+rangovi[2].Team+'\n'+rangovi1[0].Team)
 console.log('Šešir F\n'+rangovi1[1].Team+'\n'+rangovi1[2].Team)
 console.log('Šešir G\n'+rangovi2[0].Team+'\n'+rangovi2[1].Team)
 
+//promenjive koje mi pomazu u pronalazenju slucajnih parova
 var oneOrZero = (Math.random()>0.5)? 1 : 0;
 var oneOrZero1 = (Math.random()>0.5)? 1 : 0;
 var tmpOneOrZero;
@@ -1460,6 +1433,7 @@ if(oneOrZero1 == 1)
         tmpOneOrZero1 = 1;
     }
 
+//izabiranje prva dva para za cetvrtfinale
 if(rangovi[oneOrZero].Grupa == rangovi2[oneOrZero1].Grupa)
 {
     if(oneOrZero1 == 1)
@@ -1491,9 +1465,6 @@ else{
     var dugiPar =[rangovi[tmpOneOrZero], rangovi2[tmpOneOrZero1]];
 }
 
-//console.log(prviPar)
-//console.log(dugiPar)
-
 var tmpRangovi = [rangovi[2], rangovi1[0]];
 var tmpRangovi2 = [rangovi1[1], rangovi1[2]];
 
@@ -1519,6 +1490,7 @@ if(OneOrZ1 == 1)
         tmpOneOrZ1 = 1;
     }
 
+//biranje treceg i cetvrtog para za cetvrtfinale
 if(tmpRangovi[oneOrZ].Grupa == tmpRangovi2[OneOrZ1].Grupa)
 {
     if(OneOrZ1 == 1)
@@ -1549,10 +1521,8 @@ else{
     var treciPar =[tmpRangovi[oneOrZ], tmpRangovi2[OneOrZ1]];
     var cetvrtiPar =[tmpRangovi[tmpOneOrZ], tmpRangovi2[tmpOneOrZ1]];
 }
-//console.log(prviPar)
-//console.log(dugiPar)
-//console.log(treciPar)
-//console.log(cetvrtiPar)
+
+//Odredjivanje koji par gde ce se sastati u polufinalu
 var rand = (Math.random()>0.5)? 1 : 0;
 var rand1 = (Math.random()>0.5)? 1 : 0;
 var tmpPolufinale = [prviPar, dugiPar];
@@ -1575,6 +1545,7 @@ else
           var  tmpRand1 = 1;
         }
 
+//Odredjivanje kostura za polufinale
 var polufinale = [tmpPolufinale[rand],tmpPolufinale1[rand1]];
 var polufinale1 = [tmpPolufinale[tmpRand],tmpPolufinale1[tmpRand1]];
 
@@ -1585,6 +1556,7 @@ console.log(polufinale[1][0].Team+'-'+polufinale[1][1].Team)
 console.log("\n"+polufinale1[0][0].Team+'-'+polufinale1[0][1].Team)
 console.log(polufinale1[1][0].Team+'-'+polufinale1[1][1].Team)
 
+//funkcija za odredjivanje pobednika
 function IgraPolufinale(prvi, drugi)
 {
 let x = Math.floor(Math.random() * 50) + 60;
@@ -1631,6 +1603,7 @@ IgraPolufinale(polufinale[0][0], polufinale[0][1]);
 IgraPolufinale(polufinale[1][0], polufinale[1][1]);
 console.log('\n');
 
+//Odredjivanje prvog para za polufinale
 var poluf = [];
 if (polufinale[0][0].BrojacPobeda == 1)
 {
@@ -1651,6 +1624,7 @@ else{
 IgraPolufinale(polufinale1[0][0], polufinale1[0][1]);
 IgraPolufinale(polufinale1[1][0], polufinale1[1][1]);
 
+//Odredjivanje drugog para za polufinale
 var poluf1 = [];
 if (polufinale1[0][0].BrojacPobeda == 1)
 {
@@ -1670,6 +1644,7 @@ console.log("\nPolufinale:")
 IgraPolufinale(poluf[0], poluf[1]);
 IgraPolufinale(poluf1[0], poluf1[1]);
 
+//Odredjivanje protivnika za finale i trece mesto
 var finale = [];
 var treceMesto = [];
 if (poluf[0].BrojacPobeda == 2)
